@@ -24,6 +24,7 @@
 #include "stm32g4xx.h"
 #include "util.h"
 #include "target_board.h"
+#include "daplink_addr.h"
 
 /*********************************************************************
 *
@@ -67,38 +68,33 @@ uint32_t EraseSector(uint32_t adr)
     uint32_t ret = 0;
 
     erase_init.TypeErase = FLASH_TYPEERASE_PAGES;
-    erase_init.Page = adr;
+    erase_init.Page = (adr - DAPLINK_ROM_START) / DAPLINK_SECTOR_SIZE;
     erase_init.NbPages = 1;
+    erase_init.Banks = FLASH_BANK_1;
 
-    // if (HAL_FLASHEx_Erase(&erase_init, &error) != HAL_OK) {
-    //     ret = 1;
-    // }
+    if (HAL_FLASHEx_Erase(&erase_init, &error) != HAL_OK) {
+        ret = 1;
+    }
 
     return ret;
 }
 
 uint32_t ProgramPage(uint32_t adr, uint32_t sz, uint32_t *buf)
 {
-    #if 0
     uint32_t i;
     uint32_t ret = 0;
-
-    HAL_FLASH_Unlock();
+    uint64_t *dbuf = (uint64_t *) buf;
 
     util_assert(sz % 8 == 0);
 
     for (i = 0; i < sz / 8; i++) {
-        uint64_t data = buf[2*i] | buf[2*i+1];
+        uint32_t addr = adr + i * 8;
 
-        if (HAL_FLASH_Program(FLASH_TYPEPROGRAM_DOUBLEWORD, adr + i * 8, data) != HAL_OK) {
+        if (HAL_FLASH_Program(FLASH_TYPEPROGRAM_DOUBLEWORD, addr, dbuf[i]) != HAL_OK) {
             ret = 1;
             break;
         }
     }
 
-    HAL_FLASH_Lock();
-
     return ret;
-    #endif
-    return 1;
 }
