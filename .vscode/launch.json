@@ -12,24 +12,19 @@
 			"cwd": "${workspaceFolder}",
 			"miDebuggerServerAddress": ":3333",
 			"miDebuggerPath": "gdb",
-			"debugServerPath": "openocd",
-			"debugServerArgs": "-f ${workspaceFolder}/openocd.cfg",
+			"debugServerPath": "pyocd",
+			"debugServerArgs": "gdbserver --config ${workspaceFolder}/pyocd.yml",
 			"serverLaunchTimeout": 30000,
-			"serverStarted": "Listening on port 3333",
+			"serverStarted": "GDB server started on port 3333",
 			"filterStderr": true,
 			"MIMode": "gdb",
 			"targetArchitecture": "arm",
 			"setupCommands": [
-				{
-					"description": "Abilita la riformattazione per gdb",
-					"text": "-enable-pretty-printing",
-					"ignoreFailures": true
-				},
-				{
-					"description": "Abilita l'accesso incondizionato alla memoria, necessario per l'accesso alle periferiche",
-					"text": "-gdb-set mem inaccessible-by-default off",
-					"ignoreFailures": true
-				}
+				{ "text": "-enable-pretty-printing", "description": "Abilita la riformattazione per gdb", "ignoreFailures": true },
+				{ "text": "-gdb-set mem inaccessible-by-default off", "description": "Abilita l'accesso incondizionato alla memoria, necessario per l'accesso alle periferiche", "ignoreFailures": true },
+			],
+			"postRemoteConnectCommands": [
+				{ "text": "-target-download", "description": "Flash target", "ignoreFailures": false }
 			],
 			"hardwareBreakpoints": {
 				// Find in datasheet the correct number of hardware breakpoints
@@ -45,10 +40,10 @@
 			"cwd": "${workspaceFolder}",
 			"miDebuggerServerAddress": ":3333",
 			"miDebuggerPath": "gdb",
-			"debugServerPath": "openocd",
-			"debugServerArgs": "-f ${workspaceFolder}/openocd.cfg",
+			"debugServerPath": "pyocd",
+			"debugServerArgs": "gdbserver --config ${workspaceFolder}/pyocd.yml",
 			"serverLaunchTimeout": 30000,
-			"serverStarted": "Listening on port 3333",
+			"serverStarted": "GDB server started on port 3333",
 			"filterStderr": true,
 			"MIMode": "gdb",
 			"targetArchitecture": "arm",
