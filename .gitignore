@@ -53,7 +53,7 @@ JLink*.*
 Output
 Lst
 Obj
-build
+build*
 targetfw
 
 # cscope
@@ -96,5 +96,4 @@ custom_targets.json
 log.txt
 mbed-os/
 
-#vscode editor
-.vscode
+.cache

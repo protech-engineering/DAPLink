@@ -19,19 +19,31 @@
  * limitations under the License.
  */
 
+#include "util.h"
 #include "stm32g4xx.h"
 #include "read_uid.h"
 
+typedef struct
+{
+    uint16_t fwid;
+    uint16_t hwid;
+    uint32_t devid_l;
+    uint32_t devid_h;
+} UID_TypeDef;
+
+#define UID ((UID_TypeDef *) UID_BASE)
+
 void read_unique_id(uint32_t *id)
 {
-    uint32_t Device_Serial0, Device_Serial1, Device_Serial2;
+    util_assert(id != NULL);
 
-    Device_Serial0 = *(uint32_t*)(UID_BASE);
-    Device_Serial1 = *(uint32_t*)(UID_BASE + 4);
-    Device_Serial2 = *(uint32_t*)(UID_BASE + 8);
+    id[0] = UID->fwid;
+    id[1] = UID->hwid;
+    id[2] = UID->devid_l;
+    id[3] = UID->devid_h;
+}
 
-    id[0] = Device_Serial0;
-    id[1] = Device_Serial1;
-    id[2] = Device_Serial2;
-    id[3] = 0xA5A5A5A5;
+void create_unique_id(void)
+{
+    util_assert(false);
 }

@@ -23,7 +23,6 @@
 #include "target_config.h"    // target_device
 #include "stm32g4xx.h"
 #include "util.h"
-#include "string.h"
 #include "target_board.h"
 
 /*********************************************************************
@@ -57,6 +56,7 @@ uint32_t UnInit(uint32_t fnc)
 
 uint32_t EraseChip(void)
 {
+    #if 0
     FLASH_EraseInitTypeDef erase_init = {0};
     uint32_t error;
     uint32_t ret = 0;
@@ -81,10 +81,13 @@ uint32_t EraseChip(void)
     }
 
     return ret;
+    #endif
+    return 1;
 }
 
 uint32_t EraseSector(uint32_t adr)
 {
+    #if 0
     FLASH_EraseInitTypeDef erase_init = {0};
     uint32_t error;
     uint32_t ret = 0;
@@ -102,10 +105,13 @@ uint32_t EraseSector(uint32_t adr)
     HAL_FLASH_Lock();
 
     return ret;
+    #endif
+    return 1;
 }
 
 uint32_t ProgramPage(uint32_t adr, uint32_t sz, uint32_t *buf)
 {
+    #if 0
     uint32_t i;
     uint32_t ret = 0;
 
@@ -125,4 +131,6 @@ uint32_t ProgramPage(uint32_t adr, uint32_t sz, uint32_t *buf)
     HAL_FLASH_Lock();
 
     return ret;
+    #endif
+    return 1;
 }

@@ -33,19 +33,6 @@
 .global	g_pfnVectors
 .global	Default_Handler
 
-/* start address for the initialization values of the .data section.
-defined in linker script */
-.word	_sidata
-/* start address for the .data section. defined in linker script */
-.word	_sdata
-/* end address for the .data section. defined in linker script */
-.word	_edata
-/* start address for the .bss section. defined in linker script */
-.word	_sbss
-/* end address for the .bss section. defined in linker script */
-.word	_ebss
-
-.equ  BootRAM,        0xF1E0F85F
 /**
  * @brief  This is the code that gets called when the processor first
  *          starts execution following a reset event. Only the absolutely
@@ -59,13 +46,13 @@ defined in linker script */
 	.weak	Reset_Handler
 	.type	Reset_Handler, %function
 Reset_Handler:
-  ldr   r0, =_estack
+  ldr   r0, =__StackTop
   mov   sp, r0          /* set stack pointer */
 
 /* Copy the data segment initializers from flash to SRAM */
-  ldr r0, =_sdata
-  ldr r1, =_edata
-  ldr r2, =_sidata
+  ldr r0, =__data_start__
+  ldr r1, =__data_end__
+  ldr r2, =__etext
   movs r3, #0
   b	LoopCopyDataInit
 
@@ -80,8 +67,8 @@ LoopCopyDataInit:
   bcc CopyDataInit
 
 /* Zero fill the bss segment. */
-  ldr r2, =_sbss
-  ldr r4, =_ebss
+  ldr r2, =__bss_start__
+  ldr r4, =__bss_end__
   movs r3, #0
   b LoopFillZerobss
 
@@ -131,7 +118,7 @@ Infinite_Loop:
 
 
 g_pfnVectors:
-	.word	_estack
+	.word	__StackTop
 	.word	Reset_Handler
 	.word	NMI_Handler
 	.word	HardFault_Handler
@@ -139,9 +126,9 @@ g_pfnVectors:
 	.word	BusFault_Handler
 	.word	UsageFault_Handler
 	.word	0
-    .long   DAPLINK_BUILD_KEY                               /* DAPLINK: Build type (BL/IF)*/
-    .long   DAPLINK_HIC_ID                                  /* DAPLINK: Compatibility*/
-    .long   DAPLINK_VERSION                                 /* DAPLINK: Version*/
+    .word   DAPLINK_BUILD_KEY                               /* DAPLINK: Build type (BL/IF)*/
+    .word   DAPLINK_HIC_ID                                  /* DAPLINK: Compatibility*/
+    .word   DAPLINK_VERSION                                 /* DAPLINK: Version*/
 	.word	SVC_Handler
 	.word	DebugMon_Handler
 	.word	0

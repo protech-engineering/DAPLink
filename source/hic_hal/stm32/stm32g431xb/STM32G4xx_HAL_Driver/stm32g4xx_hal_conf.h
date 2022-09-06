@@ -186,7 +186,7 @@ The real value may vary depending on the variations in voltage and temperature.*
 #define  PREFETCH_ENABLE              0U
 #define  INSTRUCTION_CACHE_ENABLE     1U
 #define  DATA_CACHE_ENABLE            1U
-
+#define  USE_USB_DOUBLE_BUFFER        0U
 /* ########################## Assert Selection ############################## */
 /**
   * @brief Uncomment the line below to expanse the "assert_param" macro in the
