@@ -151,6 +151,7 @@ __STATIC_INLINE void pin_out_od_init(GPIO_TypeDef* GPIOx, uint8_t pin_bit)
     GPIOx->MODER &= ~(3U << (pin_bit * 2U));  // Input
     GPIOx->OSPEEDR |= (3U << (pin_bit * 2U)); // Hi-speed
     GPIOx->OTYPER |= (1U << pin_bit);         // Open-drain
+    GPIOx->PUPDR &= ~(3U << (pin_bit * 2U));  // No pull
     GPIOx->MODER |= (1U << (pin_bit * 2U));   // Output
 }
 

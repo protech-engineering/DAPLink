@@ -91,8 +91,8 @@ static STM32_USART_RESOURCES USART1_Resources = {
      },
     {.Instance = USART1,.Init.WordLength = UART_WORDLENGTH_8B,.Init.StopBits = UART_STOPBITS_1,.Init.Parity =
      HAL_UART_PARITY_NONE,.Init.HwFlowCtl = UART_HWCONTROL_NONE},
-    {GPIOA, {.Pin = GPIO_PIN_9,.Mode = GPIO_MODE_AF_PP,.Pull = GPIO_NOPULL,.Speed = GPIO_SPEED_FREQ_VERY_HIGH,.Alternate = GPIO_AF7_USART1}},   /* Tx Pin */
-    {GPIOA, {.Pin = GPIO_PIN_10,.Mode = GPIO_MODE_AF_PP,.Pull = GPIO_NOPULL,.Speed = GPIO_SPEED_FREQ_VERY_HIGH,.Alternate = GPIO_AF7_USART1}},   /* Rx Pin */
+    {NULL},   /* Tx Pin */
+    {GPIOA, {.Pin = GPIO_PIN_10,.Mode = GPIO_MODE_AF_OD,.Pull = GPIO_NOPULL,.Speed = GPIO_SPEED_FREQ_VERY_HIGH,.Alternate = GPIO_AF7_USART1}},   /* Rx Pin */
     {0},
     {0},
     NULL
@@ -156,8 +156,10 @@ static int32_t STM32_USART_Initialize(ARM_USART_SignalEvent_t cb_event, STM32_US
         usart->cb_event = cb_event;
     }
 
-    HAL_GPIO_Init(usart->TxPin.port, &usart->TxPin.pin);
-    HAL_GPIO_Init(usart->RxPin.port, &usart->RxPin.pin);
+    if (usart->TxPin.port)
+        HAL_GPIO_Init(usart->TxPin.port, &usart->TxPin.pin);
+    if (usart->RxPin.port)
+        HAL_GPIO_Init(usart->RxPin.port, &usart->RxPin.pin);
 
     return ARM_DRIVER_OK;
 }
