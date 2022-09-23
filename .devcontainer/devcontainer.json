@@ -1,0 +1,42 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the README at:
+// https://github.com/microsoft/vscode-dev-containers/tree/v0.205.2/containers/ubuntu
+{
+	"name": "Ubuntu",
+	"image": "ghcr.io/protech-engineering/devcontainers:barearm-10.3_2021.10",
+
+	// Run as privileged to access system peripherals
+	"runArgs": [
+		"--privileged"
+	],
+
+	// Access devices hot plug (without this line only devices plugged at container boot are loaded)
+	"mounts": [
+		"type=bind,source=/dev,target=/dev"
+	],
+
+	"postCreateCommand": "bash .devcontainer/postCreateCommand.sh",
+
+	"customizations": {
+		"vscode": {
+			// Set *default* container specific settings.json values on container create.
+			"settings": {
+				"remote.autoForwardPorts": false
+			},
+			// Add the IDs of extensions you want installed when the container is created.
+			"extensions": [
+				"mhutchie.git-graph",
+				"eamodio.gitlens",
+				"ms-vscode.cpptools",
+				"llvm-vs-code-extensions.vscode-clangd",
+				"ms-vscode.vscode-embedded-tools",
+				"trond-snekvik.gnu-mapfiles",
+				"dan-c-underwood.arm",
+				"ZixuanWang.linkerscript",
+				"ms-vscode.hexeditor"
+			]
+		}
+	},
+
+	// Comment out connect as root instead. More info: https://aka.ms/vscode-remote/containers/non-root.
+	"remoteUser": "vscode"
+}
