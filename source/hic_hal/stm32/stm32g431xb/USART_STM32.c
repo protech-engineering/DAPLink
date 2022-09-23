@@ -116,42 +116,6 @@ static int32_t STM32_USART_Initialize(ARM_USART_SignalEvent_t cb_event, STM32_US
         __HAL_RCC_GPIOA_CLK_ENABLE();
     }
 #endif
-#ifdef GPIOB
-    if ((usart->TxPin.port == GPIOB) || (usart->RxPin.port == GPIOB)) {
-        __HAL_RCC_GPIOB_CLK_ENABLE();
-    }
-#endif
-#ifdef GPIOC
-    if ((usart->TxPin.port == GPIOC) || (usart->RxPin.port == GPIOC)) {
-        __HAL_RCC_GPIOC_CLK_ENABLE();
-    }
-#endif
-#ifdef GPIOD
-    if ((usart->TxPin.port == GPIOD) || (usart->RxPin.port == GPIOD)) {
-        __HAL_RCC_GPIOD_CLK_ENABLE();
-    }
-#endif
-#ifdef GPIOE
-    if ((usart->TxPin.port == GPIOE) || (usart->RxPin.port == GPIOE)) {
-        __HAL_RCC_GPIOE_CLK_ENABLE();
-    }
-#endif
-#ifdef GPIOF
-    if ((usart->TxPin.port == GPIOF) || (usart->RxPin.port == GPIOF)) {
-        __HAL_RCC_GPIOF_CLK_ENABLE();
-    }
-#endif
-#ifdef GPIOG
-    if ((usart->TxPin.port == GPIOG) || (usart->RxPin.port == GPIOG)) {
-        __HAL_RCC_GPIOG_CLK_ENABLE();
-    }
-#endif
-#ifdef GPIOH
-    if ((usart->TxPin.port == GPIOH) || (usart->RxPin.port == GPIOH)) {
-        __HAL_RCC_GPIOH_CLK_ENABLE();
-    }
-#endif
-
     if (cb_event != NULL) {
         usart->cb_event = cb_event;
     }

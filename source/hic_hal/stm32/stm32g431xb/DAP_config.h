@@ -152,6 +152,7 @@ __STATIC_INLINE void pin_out_od_init(GPIO_TypeDef* GPIOx, uint8_t pin_bit)
     GPIOx->OSPEEDR |= (3U << (pin_bit * 2U)); // Hi-speed
     GPIOx->OTYPER |= (1U << pin_bit);         // Open-drain
     GPIOx->PUPDR &= ~(3U << (pin_bit * 2U));  // No pull
+    GPIOx->PUPDR |= (1U << (pin_bit * 2U));   // Pull up
     GPIOx->MODER |= (1U << (pin_bit * 2U));   // Output
 }
 
@@ -161,11 +162,6 @@ __STATIC_INLINE void pin_in_init(GPIO_TypeDef* GPIOx, uint8_t pin_bit, uint8_t m
         GPIOx->MODER &= ~(3U << (pin_bit * 2U));   // Input
         GPIOx->PUPDR &= ~(3U << (pin_bit * 2U));   // Push-Pull
         GPIOx->PUPDR |= ~(mode << (pin_bit * 2U)); // Pull setting
-
-        if (mode == 1)
-            GPIOx->BSRR = (1U << pin_bit);
-        else if (mode == 2)
-            GPIOx->BRR = (1U << pin_bit);
     } else {
         GPIOx->MODER |= (3U << (pin_bit * 2U));    // High impedance
     }
