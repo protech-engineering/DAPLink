@@ -62,6 +62,12 @@ void gpio_init(void)
     GPIO_InitStructure.Mode = GPIO_MODE_OUTPUT_PP;
     HAL_GPIO_Init(PIN_MSC_LED_PORT, &GPIO_InitStructure);
 
+    HAL_GPIO_WritePin(PIN_HID_LED_PORT, PIN_HID_LED, GPIO_PIN_SET);
+    GPIO_InitStructure.Pin = PIN_HID_LED;
+    GPIO_InitStructure.Speed = GPIO_SPEED_FREQ_HIGH;
+    GPIO_InitStructure.Mode = GPIO_MODE_OUTPUT_PP;
+    HAL_GPIO_Init(PIN_HID_LED_PORT, &GPIO_InitStructure);
+
     // reset button configured as gpio open drain output with a pullup
     HAL_GPIO_WritePin(nRESET_PIN_PORT, nRESET_PIN, GPIO_PIN_SET);
     GPIO_InitStructure.Pin = nRESET_PIN;

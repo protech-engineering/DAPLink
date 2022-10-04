@@ -25,6 +25,7 @@
 #include "usb_for_lib.h"
 #include "util.h"
 #include "DAP_queue.h"
+#include DAPLINK_MAIN_HEADER
 
 static U8 *ptrDataIn;
 static U16 DataInReceLen;
@@ -82,6 +83,9 @@ void USBD_BULK_EP_BULKOUT_Event(U32 event)
                 USB_ResponseIdle = 0;
             }
         }
+
+        main_blink_hid_led(MAIN_LED_FLASH);
+
         //revert the input pointers
         DataInReceLen = 0;
         ptrDataIn     = USBD_Bulk_BulkOutBuf;
