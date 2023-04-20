@@ -104,7 +104,6 @@ module:
     hic_stm32g431xb: &module_hic_stm32g431xb
         - records/rtos/rtos-cm4.yaml
         - records/hic_hal/stm32g431xb.yaml
-        - records/usb/usb-hid.yaml
 
 projects:
     # HIC bootloaders and all target interfaces
