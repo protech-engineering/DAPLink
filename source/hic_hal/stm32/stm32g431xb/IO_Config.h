@@ -51,6 +51,11 @@ COMPILER_ASSERT(DAPLINK_HIC_ID == DAPLINK_HIC_ID_STM32G431XB);
 #define SWDIO_IN_PIN                 GPIO_PIN_12
 #define SWDIO_IN_PIN_Bit             12
 
+//SWDIO direction
+#define PROG_DIR_PIN_PORT            GPIOB
+#define PROG_DIR_PIN                 GPIO_PIN_10
+#define PROG_DIR_PIN_Bit             10
+
 //LEDs
 //USB status LED
 #define PIN_HID_LED_PORT             GPIOA

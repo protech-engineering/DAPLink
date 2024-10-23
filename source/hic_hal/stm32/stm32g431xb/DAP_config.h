@@ -235,6 +235,9 @@ __STATIC_INLINE void PORT_SWD_SETUP(void)
     // Set RESET HIGH
     pin_out_od_init(nRESET_PIN_PORT, nRESET_PIN_Bit);//TODO - fix reset logic
     nRESET_PIN_PORT->BSRR = nRESET_PIN;
+
+    // Init SWDIO direction pin
+    pin_out_init(PROG_DIR_PIN_PORT, PROG_DIR_PIN_Bit);
 }
 
 /** Disable JTAG/SWD I/O Pins.
@@ -325,6 +328,9 @@ called prior \ref PIN_SWDIO_OUT function calls.
 */
 __STATIC_FORCEINLINE void PIN_SWDIO_OUT_ENABLE(void)
 {
+    pin_out_init(PROG_DIR_PIN_PORT, PROG_DIR_PIN_Bit);
+    PROG_DIR_PIN_PORT->BSRR = PROG_DIR_PIN;
+
     pin_out_init(SWDIO_OUT_PIN_PORT, SWDIO_OUT_PIN_Bit);
     SWDIO_OUT_PIN_PORT->BRR = SWDIO_OUT_PIN;
 }
@@ -335,6 +341,9 @@ called prior \ref PIN_SWDIO_IN function calls.
 */
 __STATIC_FORCEINLINE void PIN_SWDIO_OUT_DISABLE(void)
 {
+    pin_out_init(PROG_DIR_PIN_PORT, PROG_DIR_PIN_Bit);
+    PROG_DIR_PIN_PORT->BRR = PROG_DIR_PIN;
+
     pin_in_init(SWDIO_OUT_PIN_PORT, SWDIO_OUT_PIN_Bit, 0);
     SWDIO_OUT_PIN_PORT->BSRR = SWDIO_OUT_PIN;
 }
@@ -502,6 +511,9 @@ __STATIC_INLINE void DAP_SETUP(void)
     /* Configure I/O pin SWCLK */
     pin_out_init(SWCLK_TCK_PIN_PORT, SWCLK_TCK_PIN_Bit);
     SWCLK_TCK_PIN_PORT->BSRR = SWCLK_TCK_PIN;
+
+    pin_out_init(PROG_DIR_PIN_PORT, PROG_DIR_PIN_Bit);
+    PROG_DIR_PIN_PORT->BRR = PROG_DIR_PIN;
 
     pin_out_init(SWDIO_OUT_PIN_PORT, SWDIO_OUT_PIN_Bit);
     SWDIO_OUT_PIN_PORT->BSRR = SWDIO_OUT_PIN;

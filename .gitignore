@@ -84,6 +84,7 @@ source/daplink/version_git.h
 
 #Misc
 .DS_Store
+.cache
 
 # automated test results
 test_results
@@ -95,6 +96,9 @@ custom_profile.json
 custom_targets.json
 log.txt
 mbed-os/
+
+#venv
+.venv
 
 #vscode editor
 .vscode

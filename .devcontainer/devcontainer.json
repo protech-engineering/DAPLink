@@ -1,0 +1,5 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the README at:
+// https://github.com/microsoft/vscode-dev-containers/tree/v0.205.2/containers/ubuntu
+{
+	"image": "ghcr.io/protech-engineering/devcontainers:barearm-12.2.Rel1"
+}
